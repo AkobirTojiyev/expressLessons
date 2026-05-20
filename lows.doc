@@ -1,0 +1,1 @@
+1. "endpoint" - bu serverga eshik vazifasini o'taydi, murojaat qilish uchun manzil(URL) va metod birikmasi: hozirgi holatimda "GET /get", "POST /post" qism hisoblanadi.

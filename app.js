@@ -17,16 +17,16 @@ app.get('/get', async(req,res)=>{
         res.status(500).json(error)
     }
 })
-
+ 
 app.post('/post', async(req,res)=>{
     try {
-        const {title, body} = req.body
-        const newPost = await postSchem.create({title, body})
-        res.status(201).json(newPost)   
+        const {title, old} = req.body
+        const postData = await postModel.create({title, old})
+        res.status(201).json(postData)
+         console.log(req.body)
     } catch (error) {
         res.status(502).json(error)
     }
-    
 })
 
 app.delete('/del/:id', (req,res)=>{

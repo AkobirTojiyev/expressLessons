@@ -7,38 +7,13 @@ const postRouter = require('./routes/post.route')
 dns.setServers(['8.8.8.8', '8.8.4.4'])
 const app = express()
 require('dotenv').config()
+const fileupload = require('express-fileupload')
 
 app.use(express.json())
-
+app.use(express.static('static'))//bu rasmlarni saqlanganlarni get qilib beradi
+// 8090/9e5904e7-96ff-4fbd-9c92-c12d8428627f.png - ishlaydi.
+app.use(fileupload())//routerdan oldin bo'lish kk ekan. 
 app.use("/api/post", postRouter)
- 
-// app.post('/post', async(req,res)=>{
-//     try {
-//         const {title, old} = req.body
-//         const postData = await postModel.create({title, old})
-//         res.status(201).json(postData)
-//          console.log(req.body)
-//     } catch (error) {
-//         res.status(502).json(error)
-//     }
-// })
-
-// app.delete('/del/:id', (req,res)=>{
-//     const {id} = req.params
-//     res.send(`${id}-o'chirildi`)
-// })
-
-// app.put('/put/:id', (req,res)=>{//id bo'yicha topadi, shuni body'sini o'zgartiradi.
-//     const {id} = req.params
-//     const body = req.body
-//     res.send({idsi:id, ozgarganbody: body})
-// })
-// { responsega ko'rinadi.
-//     "idsi": "123",
-//     "ozgarganbody": {
-//         "firsName": "Sammi"
-//     }
-// }
 
 const PORT = process.env.PORT
 

@@ -3,42 +3,36 @@ const mongoose = require('mongoose')
 const dns = require('dns')
 const postSchem = require('./models/post.model')
 const postModel = require('./models/post.model')
+const postRouter = require('./routes/post.route')
 dns.setServers(['8.8.8.8', '8.8.4.4'])
 const app = express()
 require('dotenv').config()
 
 app.use(express.json())
 
-app.get('/get', async(req,res)=>{
-    try {
-        const allPostdata = await postModel.find()
-        res.status(200).json(allPostdata)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-})
+app.use("/api/post", postRouter)
  
-app.post('/post', async(req,res)=>{
-    try {
-        const {title, old} = req.body
-        const postData = await postModel.create({title, old})
-        res.status(201).json(postData)
-         console.log(req.body)
-    } catch (error) {
-        res.status(502).json(error)
-    }
-})
+// app.post('/post', async(req,res)=>{
+//     try {
+//         const {title, old} = req.body
+//         const postData = await postModel.create({title, old})
+//         res.status(201).json(postData)
+//          console.log(req.body)
+//     } catch (error) {
+//         res.status(502).json(error)
+//     }
+// })
 
-app.delete('/del/:id', (req,res)=>{
-    const {id} = req.params
-    res.send(`${id}-o'chirildi`)
-})
+// app.delete('/del/:id', (req,res)=>{
+//     const {id} = req.params
+//     res.send(`${id}-o'chirildi`)
+// })
 
-app.put('/put/:id', (req,res)=>{//id bo'yicha topadi, shuni body'sini o'zgartiradi.
-    const {id} = req.params
-    const body = req.body
-    res.send({idsi:id, ozgarganbody: body})
-})
+// app.put('/put/:id', (req,res)=>{//id bo'yicha topadi, shuni body'sini o'zgartiradi.
+//     const {id} = req.params
+//     const body = req.body
+//     res.send({idsi:id, ozgarganbody: body})
+// })
 // { responsega ko'rinadi.
 //     "idsi": "123",
 //     "ozgarganbody": {

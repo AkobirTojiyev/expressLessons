@@ -1,1 +1,9 @@
 1. "endpoint" - bu serverga eshik vazifasini o'taydi, murojaat qilish uchun manzil(URL) va metod birikmasi: hozirgi holatimda "GET /get", "POST /post" qism hisoblanadi.
+
+2. "routes" - endpointlar yoziladigan page hisoblanadi. asosiy api darvozabonlari hisoblanadi.
+
+3. routes ichidagi path qismi "prifiks" linki hisoblanadi. app.js'dagi 'prifiks'-deb nomlanadi ham.
+
+4. "controller ichiga asosiy classlar bilan req/res bilan ishlash, client service bilan ishlash joylari bo'ladi. 
+
+5. 'service'- biznes logikalarimiz yoziladi. logika bo'ladi, DB bilan qo'shish olish kabi ishlarni.

@@ -7,3 +7,5 @@
 4. "controller ichiga asosiy classlar bilan req/res bilan ishlash, client service bilan ishlash joylari bo'ladi. 
 
 5. 'service'- biznes logikalarimiz yoziladi. logika bo'ladi, DB bilan qo'shish olish kabi ishlarni.
+
+6. 'middleware' - req va res o'rtasida turib olib hohlagan o'zgarishni qilish mumkin bo'lgan funksiya hisoblanadi. keyin unga o'zini hususiyatini biriktirish mumkin. logger, va boshqa ko'plab yo'lda o'ttirib req ishlov berib qo'yaveradi uni kerakli joyga 'req.'-bilan ishlatsa bo'ladi.

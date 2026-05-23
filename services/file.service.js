@@ -15,8 +15,8 @@ class FileService {
                 fs.mkdirSync(staticDir, {recursive:true})//bu file yaratadi o'zini.
             }
 
-            file.mv(filePath)//file keladi uni shu berilgan filePath'ga qo'yiladi.
-            return fileName
+            file.mv(filePath)//file-bu rasm uni RAMdan filePath'ga qo'yiladi. path bor = 'src/static/328rhiuf.png'ga qo'yiladi.
+            return fileName//fileNam qaytadi shuni DB mongo'ga qo'yiladi.
         }catch(error){
             throw new Error(`Error saving file: ${error}`)
         }

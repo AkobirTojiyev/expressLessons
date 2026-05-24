@@ -17,6 +17,15 @@ class authService {
         
         return userDto
     }
+
+    async activationService(id){
+        const userObj = await userModel.findById(id)
+        if(!userObj){
+            throw new Error('User topilmadi')
+        }
+        userObj.isActivated = true
+        await userObj.save()//true qildik va uni saqlab qo'ydik db'da.
+    }
 }
 
 module.exports = new authService()

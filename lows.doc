@@ -13,3 +13,9 @@
 7. AUTH alohida endpoint alohida olam bo'lgani uchun uni alohida routes'ga chiqardik va alohida controller, model va serviceslar tashkillashtirildi. 
 
 8. DTO -  data transfer object - res qaytarganda faqat kerakli qismlarni chiqarib yuborish hisoblanadi!
+
+9. dto yozilgan class har safar yangi instance bilan ishlaydi har safar yangi qiymat qaytaradi. dinamik funksiya desak bo'ladi. undan voris olmasdan qiymat uzatiladi faqat
+
+10. try blok ichida shunchaki controllerda res.json qilishni o'zi 'res.status(200)'ni default holda qaytaradi.
+
+11. Activation qilish uchun foydalanuvchi gmail'da 'http://localhost:8090/api/auth/activation/6a12c2333e4c3445d1c9c593' - shu manzilga kirganda git bo'ladi va natijani olganda so'rov ketib true bo'ladi.

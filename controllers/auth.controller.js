@@ -5,6 +5,7 @@ class AuthController {
         try {
             const { email, password } = req.body
             const data = await authService.registerService(email, password)
+            res.cookie('refreshToken', data.refreshToken, {httpOnly: true, maxAge: 30 * 24 * 60 * 1000 })
             res.json(data)
         } catch (error) {
             console.log(error);

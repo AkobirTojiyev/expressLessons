@@ -19,3 +19,11 @@
 10. try blok ichida shunchaki controllerda res.json qilishni o'zi 'res.status(200)'ni default holda qaytaradi.
 
 11. Activation qilish uchun foydalanuvchi gmail'da 'http://localhost:8090/api/auth/activation/6a12c2333e4c3445d1c9c593' - shu manzilga kirganda git bo'ladi va natijani olganda so'rov ketib true bo'ladi.
+
+12. 'jsonwebtoken' - kutubxonasi jwt(json web token) tokenlar bilan ishlash uchun va 'cookie-parser' - cookies bilan ishlash uchun 
+
+13. model[token.model.js] tokenlarni ma'lumot bazasiga saqlash va aynan refresh token uchun.
+
+14. env file ichida access va refresh tokenni secret keylari yoziladi, jwt uchun kerak. token generatsiya qilish uchun ham mahsus service file bor!
+
+15

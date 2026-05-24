@@ -9,3 +9,7 @@
 5. 'service'- biznes logikalarimiz yoziladi. logika bo'ladi, DB bilan qo'shish olish kabi ishlarni.
 
 6. 'middleware' - req va res o'rtasida turib olib hohlagan o'zgarishni qilish mumkin bo'lgan funksiya hisoblanadi. keyin unga o'zini hususiyatini biriktirish mumkin. logger, va boshqa ko'plab yo'lda o'ttirib req ishlov berib qo'yaveradi uni kerakli joyga 'req.'-bilan ishlatsa bo'ladi.
+
+7. AUTH alohida endpoint alohida olam bo'lgani uchun uni alohida routes'ga chiqardik va alohida controller, model va serviceslar tashkillashtirildi. 
+
+8. DTO -  data transfer object - res qaytarganda faqat kerakli qismlarni chiqarib yuborish hisoblanadi!

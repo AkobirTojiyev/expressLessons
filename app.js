@@ -4,6 +4,7 @@ const dns = require('dns')
 const postSchem = require('./models/post.model')
 const postModel = require('./models/post.model')
 const postRouter = require('./routes/post.route')
+const authRouter = require('./routes/auth.route')
 dns.setServers(['8.8.8.8', '8.8.4.4'])
 const app = express()
 require('dotenv').config()
@@ -17,6 +18,7 @@ app.use(fileupload())//routerdan oldin bo'lish kk ekan.
 app.use(reqtime)//ishlatish uchun "req.reqtime" qilinsa shu funksiyani javobi keladi.
 
 app.use("/api/post", postRouter)
+app.use('/api/auth', authRouter)
 
 const PORT = process.env.PORT
 

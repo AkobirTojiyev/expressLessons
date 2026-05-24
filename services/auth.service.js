@@ -1,3 +1,4 @@
+const UserDto = require('../dtos/user.dto')
 const userModel = require('../models/user.model')
 const bcrypt = require('bcrypt')
 
@@ -12,7 +13,9 @@ class authService {
         const bcPassword = await bcrypt.hash(password, 10)
         const user = await userModel.create({email, password: bcPassword})
 
-        return {user}
+        const userDto = new UserDto(user)
+        
+        return userDto
     }
 }
 

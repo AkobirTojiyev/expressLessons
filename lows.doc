@@ -26,4 +26,5 @@
 
 14. env file ichida access va refresh tokenni secret keylari yoziladi, jwt uchun kerak. token generatsiya qilish uchun ham mahsus service file bor!
 
-15
+15. SMTP - elektron pochta habarlarini serverlar o'rtasida almashni taminlaydigan Protokol. 
+

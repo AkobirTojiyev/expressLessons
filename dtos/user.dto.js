@@ -1,12 +1,11 @@
-class UserDto{
-    email
-    id
-    isActivated
-    constructor(model){
-        this.email = model.email
-        this.id = model._id
-        this.isActivated = model.isActivated
+const { model } = require("mongoose");
+
+class userDto {
+    constructor(modelUser){
+        this.email = modelUser.email,
+        this.id = modelUser._id
+        this.isActivated = modelUser.isActivated
     }
 }
 
-module.exports = UserDto
+module.exports = userDto

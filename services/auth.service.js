@@ -1,26 +1,25 @@
+const userModel = require("../models/user.model")
+const bcrypt = require("bcrypt")
 const UserDto = require('../dtos/user.dto')
-const userModel = require('../models/user.model')
-const bcrypt = require('bcrypt')
-const tokenService = require('./token.service')
-const mailService = require('./mail.service')
+const CreateTokens = require('./token.service')
+const mailService = require("./mail.service")
 
-class authService {
+class AuthService{
     async registerService(email, password){
-        const checkEmail = await userModel.findOne({email})
-
-        if(checkEmail){
-            throw new Error('foydalanuvchi shu email bilan royxatdan otgan')
+        const checkUser = await userModel.findOne({email})
+        if(checkUser){
+            throw new Error('this user already sign in.')
         }
+        const strongPassword = await bcrypt.hash(password, 10)
+        const user = await userModel.create({email, password: strongPassword}) // yaraldi email, password, isActive bilan.
 
-        const bcPassword = await bcrypt.hash(password, 10)
-        const user = await userModel.create({email, password: bcPassword})
         const userDto = new UserDto(user)
 
         await mailService.sendMail(email, `${process.env.API_URL}/api/auth/activation/${userDto.id}`)
 
-        const tokens = tokenService.generateToken({...userDto})
-
-        await tokenService.saveToken(userDto.id, tokens.refreshToken)
+        const tokens = CreateTokens.generateToken({...userDto})// hozir userDto class obj uni tozalash uchun ... kerak va ustiga yana {} qo'yildi.
+        
+        await CreateTokens.saveToken(userDto.id, tokens.refreshToken)
 
         return {user: userDto, ...tokens}
     }
@@ -28,11 +27,11 @@ class authService {
     async activationService(id){
         const userObj = await userModel.findById(id)
         if(!userObj){
-            throw new Error('User topilmadi')
+            throw new Error('id qo"shib ber')
         }
         userObj.isActivated = true
-        await userObj.save()//true qildik va uni saqlab qo'ydik db'da.
+        await userObj.save()
     }
 }
 
-module.exports = new authService()
+module.exports = new AuthService()

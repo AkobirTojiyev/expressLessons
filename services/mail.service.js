@@ -12,7 +12,7 @@ class MailService {
             }
         })
     }
-
+    
     async sendMail(email, activationLink){
         await this.transporter.sendMail({
             from: process.env.SMTP_USER,
@@ -26,5 +26,6 @@ class MailService {
         })
     }
 }
+
 
 module.exports = new MailService()

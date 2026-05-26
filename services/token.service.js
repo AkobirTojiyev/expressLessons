@@ -1,23 +1,22 @@
 const jwt = require('jsonwebtoken')
 const tokenModel = require('../models/token.model')
 
-class TokenService {
-    generateToken(payload){//bu payload data foydalanuvchi haqida.
+class CreateTokens{
+    generateToken(payload){
         const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_KEY, {expiresIn: "15m"})
         const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_KEY, {expiresIn: "30d"})
-
         return {accessToken, refreshToken}
     }
 
-    async saveToken(userId, refreshToken){
-        const trueToken = await tokenModel.findOne({user: userId})//obj qaytaradi. malumot bazasida borligi.
-        if(trueToken){
-            trueToken.refreshToken = refreshToken//yangilandi refresh
-            return trueToken.save()//db saqlash.
+    async saveToken(id, refToken){
+        const token = await tokenModel.findOne({user: id})
+        if(token){
+            token.refreshToken = refToken
+            return token.save()
         }
-        const token = await tokenModel.create({user: userId, refreshToken})//token bo'lmasa token yaratadi. 
-        return token
+        const tokenDB = await tokenModel.create({user: id, refreshToken: refToken})
+        return tokenDB
     }
 }
 
-module.exports = new TokenService()
+module.exports = new CreateTokens() 

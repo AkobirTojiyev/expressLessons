@@ -5,12 +5,13 @@ const CreateTokens = require('./token.service')
 const mailService = require("./mail.service")
 const tokenService = require("./token.service")
 const userDto = require("../dtos/user.dto")
+const BaseError = require("../errors/base.error")
 
 class AuthService{
     async registerService(email, password){
         const checkUser = await userModel.findOne({email})
         if(checkUser){
-            throw new Error('this user already sign in.')
+            throw BaseError.BadRequest('this user already sign in.')
         }
         const strongPassword = await bcrypt.hash(password, 10)
         const user = await userModel.create({email, password: strongPassword}) // yaraldi email, password, isActive bilan.
@@ -29,7 +30,7 @@ class AuthService{
     async activationService(id){
         const userObj = await userModel.findById(id)
         if(!userObj){
-            throw new Error('id qo"shib ber')
+            throw BaseError.BadRequest('id qo"shib ber')
         }
         userObj.isActivated = true
         await userObj.save()
@@ -38,12 +39,12 @@ class AuthService{
     async loginService(email, password){
         const user = await userModel.findOne({email})
         if(!user){//login qilgan userni qaytaradi ushbu email bilan ro'yxatda bor yuqligini aniqlash uchun
-            throw new Error('User is not defined')
+            throw BaseError.BadRequest('User is not defined')
         }
 
         const isPassword = await bcrypt.compare(password, user.password)//bu kiritlgan parol va databazadagi kod bilan bir xilligini tekshiradi, true to'g'ri bo'lsa
         if(!isPassword){
-            throw new Error('Password is incorrect')   
+            throw BaseError.BadRequest('Password is incorrect')   
         }
 
         const userDto = new UserDto(user)
@@ -58,7 +59,7 @@ class AuthService{
 
     async refreshService(refToken){//tokenlar eskirganda uni yangilash.
         if(!refToken){
-            throw new Error('Bad authorizition')
+            throw BaseError.UnauthorizedError('Bad authorizition')
         }
 
         const userPayload = tokenService.validatRefreshToken(refToken)//userPayload'ga userDto qaytmoqda, foydalanuvchi datalari. barcha data qaytadigani. 
@@ -66,8 +67,8 @@ class AuthService{
         const tokenRefDb = await tokenService.findToken(refToken)
 
         if(!userPayload || !tokenRefDb){
-            throw new Error('Bad authorization')
-        }
+            throw BaseError.UnauthorizedError('Bad authorization')
+        } 
 
         const user = await userModel.findById(userPayload.id) //aynan shu refreshTokenni id yordamida user db'dagi obj ichidan topib olish uchun foydalanuvchini o'zini:
         const userDto = new UserDto(user)
@@ -76,6 +77,11 @@ class AuthService{
 
         return {user: userDto, ...tokens}
     }
+
+    async getUser(){
+        return await userModel.find()
+    }
+
 }
 
 module.exports = new AuthService()

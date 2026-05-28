@@ -29,3 +29,6 @@
 15. SMTP - elektron pochta habarlarini serverlar o'rtasida almashni taminlaydigan Protokol. 
 
 16. res.cookie('refreshT', data.refreshToken, {httpOnly: true, maxAge:30*24}) - bu refreshTokenni saqlab qo'yish bundan maqsad js'dan qo'l yetmaydi. data.refresh - generatsiya qilingan R-token.
+
+17. "express-validator" - kutubxonasi bor uni xatoliklarni yanada aniq ushlash va xatoliklar haqida qo'shimchalar yuklash to'ldirish uchun kerak.  route ichiga qo'shilgan body xatolilarni req ichiga yozadi va controller ichiga kelganda o'qiydi u xatoliklarni 'validationResult(req)' bor bu uchun. uni BadReq error berilgan qism ichiga to'ldirib yuborish uchun. routedda belgilangan xatoliklar bilan ishlash vazifasi.
+

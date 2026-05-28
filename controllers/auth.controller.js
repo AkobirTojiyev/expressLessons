@@ -1,14 +1,21 @@
+const { validationResult } = require("express-validator");
+const BaseError = require("../errors/base.error");
 const authService = require("../services/auth.service");
 
 class AuthController{
     async register(req,res,next){
         try {
+            const errors = validationResult(req)
+            if(!errors.isEmpty()){
+                return next(BaseError.BadRequest('Error with validation', errors.array()))
+            }
+
             const {email, password} = req.body
             const data = await authService.registerService(email, password)
             res.cookie('refreshToken', data.refreshToken, {httpOnly: true, maxAge: 30*24*60*60*1000})
             res.json(data)
         } catch (error) {
-            console.log(error);
+            next(error)
         }
     }
 
@@ -18,7 +25,7 @@ class AuthController{
           await authService.activationService(id)
           return res.redirect('https://www.youtube.com/')
         } catch (error) {
-           console.log(error); 
+           next(error)
         }
     }
 
@@ -29,7 +36,7 @@ class AuthController{
             res.cookie('refreshToken', data.refreshToken, {httpOnly: true, maxAge: 30*24*60*60*1000})
             res.json(data)
         } catch (error) {
-            console.log(error);   
+            next(error)   
         }
     }
 
@@ -40,7 +47,7 @@ class AuthController{
             res.clearCookie('refreshToken')//requestdan ushlasak bo'ladi cookieni default xolatda kelar ekan.
             return res.send('ok logout you')
         } catch (error) {
-            console.log(error);
+            next(error)
         }
     }
 
@@ -51,7 +58,16 @@ class AuthController{
             res.cookie('refreshToken', data.refreshToken, {httpOnly: true, maxAge: 30*24*60*60*1000})
             res.json(data)
         } catch (error) {
-            console.log(error);
+            next(error)
+        }
+    }
+
+    async getUser(req, res, next) {
+        try {
+            const data = await authService.getUser()
+            return res.json(data)
+        } catch (error) {
+            next(error)
         }
     }
 }

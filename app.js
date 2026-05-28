@@ -9,6 +9,7 @@ const app = express()
 const fileupload = require('express-fileupload')
 const reqtime = require('./middleware/req-time')
 const cookieParser = require('cookie-parser')
+const errorMiddleware = require('./middleware/error.middleware')
 
 app.use(express.json())
 app.use(express.static('static'))//bu rasmlarni saqlanganlarni get qilib beradi
@@ -20,6 +21,8 @@ app.use(reqtime)//ishlatish uchun "req.reqtime" qilinsa shu funksiyani javobi ke
 //routes
 app.use("/api/post", postRouter)
 app.use('/api/auth', authRouter)
+
+app.use(errorMiddleware)
 
 const PORT = process.env.PORT
 

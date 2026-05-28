@@ -1,7 +1,7 @@
 const postService = require("../services/post.service");
 
 class PostController {
-    async getAll(req,res){
+    async getAll(req,res, next){
         try {
             const allPostdata = await postService.getService()
             res.status(200).json(allPostdata)
@@ -10,7 +10,7 @@ class PostController {
         }
     }
 
-    async create(req,res){
+    async create(req,res, next){
         try {
             const postData = await postService.createService(req.body, req.files.picture)
             res.status(201).json(postData)
@@ -19,7 +19,7 @@ class PostController {
         }
     }
 
-    async delete(req,res){
+    async delete(req,res, next){
         try {
             const {id} = req.params
             const idsi = await postService.deleteService(id)
@@ -29,7 +29,7 @@ class PostController {
         }
     }
 
-    async put(req,res){
+    async put(req,res, next){
         try {
             const {id} = req.params
             const put = await postService.edit(id, req.body)
@@ -39,7 +39,7 @@ class PostController {
         }
     }
 
-    async getone(req,res){
+    async getone(req,res, next){
         try {
             const {id} = req.params
             const getOne = await postService.getones(id)

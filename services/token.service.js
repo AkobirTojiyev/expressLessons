@@ -17,6 +17,30 @@ class CreateTokens{
         const tokenDB = await tokenModel.create({user: id, refreshToken: refToken})
         return tokenDB
     }
+
+    async removeToken(refToken){
+        return await tokenModel.findOneAndDelete({refreshToken: refToken})
+    }
+
+    validatRefreshToken(token){
+        try {
+            return jwt.verify(token, process.env.JWT_REFRESH_KEY)//payload qaytaradi, dto berib yuborayotgan edikku.
+        } catch (error) {
+            return null
+        }
+    }
+
+    validatAccessToken(token){
+        try {
+            return jwt.verify(token, process.env.JWT_ACCESS_KEY)//tekshiradi agar to'g'ri bo'lsa - payload qaytaradi, dto berib yuborayotgan edikku.payloadga.
+        } catch (error) {
+            return null
+        }
+    }
+
+    async findToken(refToken){
+        return await tokenModel.findOne({refreshToken: refToken})
+    }
 }
 
 module.exports = new CreateTokens() 

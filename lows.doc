@@ -28,3 +28,4 @@
 
 15. SMTP - elektron pochta habarlarini serverlar o'rtasida almashni taminlaydigan Protokol. 
 
+16. res.cookie('refreshT', data.refreshToken, {httpOnly: true, maxAge:30*24}) - bu refreshTokenni saqlab qo'yish bundan maqsad js'dan qo'l yetmaydi. data.refresh - generatsiya qilingan R-token.

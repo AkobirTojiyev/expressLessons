@@ -6,9 +6,9 @@ class PostService{
         return await postModel.find()
     }
 
-    async createService(userData, picture){
+    async createService(userData, picture, author){
         const fileName = fileService.save(picture)//ichkarida fileni local saqlash bo'layapti, ammo nameni tashqariga chiqaravorayapman holos shunda dbda name saqlanadi
-        return await postModel.create({...userData, picture: fileName})
+        return await postModel.create({...userData, picture: fileName, author})
     }
 
     async deleteService(id){

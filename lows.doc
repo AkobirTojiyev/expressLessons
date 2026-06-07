@@ -32,3 +32,11 @@
 
 17. "express-validator" - kutubxonasi bor uni xatoliklarni yanada aniq ushlash va xatoliklar haqida qo'shimchalar yuklash to'ldirish uchun kerak.  route ichiga qo'shilgan body xatolilarni req ichiga yozadi va controller ichiga kelganda o'qiydi u xatoliklarni 'validationResult(req)' bor bu uchun. uni BadReq error berilgan qism ichiga to'ldirib yuborish uchun. routedda belgilangan xatoliklar bilan ishlash vazifasi.
 
+18. faqat ro'yxatdan o'tgan foydalanuvchini post qila olishini taminlash uchun qo'shimcha middleware sozlash ushbu middlewarelar yordamida role'larni boshqarish mumkin.
+
+19. yangi middleware bor 'author.middleware.js' undan maqsad - ayni login qilgan login qilgan foydalanuvchi tomonidan create amallari qilayotganini tekshirish boshqa foydalanuvchi login qilib turib boshqa token bilan ro'yxatdan o'tkazib asl foydalanuvchi qolib ketmasligini taminlashdan iborat. request yuborilayotgan params id'sini
+'authorMiddleware'-dan maqsad aynan foydalanuvchini o'zigina edit qilishi uchun. 
+
+20. authMiddleware - ushbu middleware'da foydalanuvchi tokenni tekshiradi, va req.user uchun access tokenni payload(dto user) beradi. bundan endi istalgan joyda foydalansak bo'ladi 
+
+21. author middleware aynan edit uchun ishlaydi sababi u create qilingan vaqtida shu auth'ga tegishli bo'lgan id yozib qolinadi va edit qilishda buyurtma id va login qilishdagi access token solishtiriladi sababi bu edit vaqtidagi id va buyurtmani create qilgandagi author id'si bir xil bo'lmasa xatolik beradi!
